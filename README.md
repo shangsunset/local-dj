@@ -18,7 +18,7 @@ node index.js # plays music.mp3 at the same time offset as DJ'machine
 
 ## Requirements
 
-currently requires mplayer.
+currently requires mpg123.
 
-* OSX: `brew install mplayer`
-* Ubuntu/debian: `apt-get install mplayer`
+* OSX: `brew install mpg123`
+* Ubuntu/debian: `apt-get install mpg123`
