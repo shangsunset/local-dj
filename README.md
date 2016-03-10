@@ -1,4 +1,4 @@
-# DJ 
+# Local DJ 
 
 Music player that broadcasts to everyone on the same network(learning from [mafintosh](https://github.com/mafintosh))
 
