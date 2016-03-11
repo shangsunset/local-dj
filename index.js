@@ -4,11 +4,31 @@ const spawn = require('child_process').spawn
 const net = require('net')
 const dns = require('dns')
 const fs = require('fs')
+const register = require('register-multicast-dns')
+
+const port = 4042
+const station = 'local-dj.local'
+
+
+function connect(host) {
+
+  const socket = net.connect(port, host)
+  const child = spawn('mpg123', ['-'], { stdio: [null, 'inherit', 'inherit'] })
+
+  socket.pipe(child.stdin)
+
+  socket.on('error', error => {
+    console.error(`client socket error: ${error}`)
+  })
+  child.on('error', error => {
+    console.log(`music player error: ${error}`)
+    process.exit(1)
+  });
+}
 
 
 function main() {
 
-  const port = 4042
   const song = process.argv.slice(2)[0]
   if (song) {
 
@@ -27,31 +47,15 @@ function main() {
     })
 
     server.listen(port)
+    register(station)
     connect('localhost')
 
   } else {
   
-    //TODO
-    dns.lookup('Yeshens-MBP.local', (err, host) => {
+    dns.lookup(station, (err, host) => {
       connect(host)
     })
   }
-}
-
-function connect(host) {
-
-  const socket = net.connect(port, host)
-  const child = spawn('mpg123', ['-'], { stdio: [null, 'inherit', 'inherit'] })
-
-  socket.pipe(child.stdin)
-
-  socket.on('error', error => {
-    console.error(`client socket error: ${error}`)
-  })
-  child.on('error', error => {
-    console.log(`music player error: ${error}`)
-    process.exit(1)
-  });
 }
 
 main()

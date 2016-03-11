@@ -1,0 +1,17 @@
+{
+  "name": "local-dj",
+  "version": "1.0.0",
+  "description": "Music player that broadcasts to everyone on the same network(learning from [mafintosh](https://github.com/mafintosh))",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shangsunset/local-dj.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shangsunset/local-dj/issues"
+  },
+  "homepage": "https://github.com/shangsunset/local-dj#readme",
+  "dependencies": {
+    "register-multicast-dns": "^1.1.0"
+  }
+}
