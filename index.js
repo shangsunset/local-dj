@@ -18,7 +18,7 @@ function connect(host) {
   socket.pipe(child.stdin)
 
   socket.on('error', error => {
-    console.error(`client socket error: ${error}`)
+    console.error(`client socket: ${error}`)
   })
   child.on('error', error => {
     console.log(`music player error: ${error}`)
@@ -29,6 +29,7 @@ function connect(host) {
 
 function main() {
 
+  let numOfClients = -1
   const song = process.argv.slice(2)[0]
   if (song) {
 
@@ -37,9 +38,14 @@ function main() {
       source.pipe(socket)
 
       socket.on('error', error => {
-        console.log(`server socket error: ${error}`)
+        console.log(`server socket: ${error}`)
         socket.destroy()
       })
+    })
+
+    server.on('socket', _ => {
+      numOfClients++
+      console.log(`${numOfClients} ${(numOfClients > 1 ? 'clients are' : 'client is')} listensing...`);
     })
 
     server.on('error', error => {
